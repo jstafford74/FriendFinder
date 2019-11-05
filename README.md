@@ -3,21 +3,21 @@
 ## Create dating app that matches user's inputs dynamically using .js data store and fully deployed to heroku
 
 ## Part 1: User Survey
-- [ ]  Survey should have 10 questions of your choosing. Each answer should be on a scale of 1 to 5 based on how much the user agrees or disagrees with a question.
+- [X]  Survey should have 10 questions of your choosing. Each answer should be on a scale of 1 to 5 based on how much the user agrees or disagrees with a question.
 
 ## Part 2: Routing
-- [ ] server.js file should require express and path.
+- [X] server.js file should require express and path.
 
-- [ ]  htmlRoutes.js file should include two routes:
-  - [ ] A GET Route to /survey which should display the survey page.
-  - [ ] A default, catch-all route that leads to home.html which displays the home page.
+- [X}  htmlRoutes.js file should include two routes:
+  - [X] A GET Route to /survey which should display the survey page.
+  - [X] A default, catch-all route that leads to home.html which displays the home page.
 
-- [ ] apiRoutes.js file should contain two routes:
-  - [ ] A GET route with the url /api/friends. This will be used to display a JSON of all possible friends.
-  - [ ] A POST routes /api/friends. This will be used to handle incoming survey results. This route will also be used to handle the compatibility logic.
+- [X] apiRoutes.js file should contain two routes:
+  - [X] A GET route with the url /api/friends. This will be used to display a JSON of all possible friends.
+  - [X] A POST routes /api/friends. This will be used to handle incoming survey results. This route will also be used to handle the compatibility logic.
 
 ## Part 3: Data Store
-- [ ] Application data is stored inside of app/data/friends.js as an array of objects. Each of these objects should roughly follow the format below.
+- [X] Application data is stored inside of app/data/friends.js as an array of objects. Each of these objects should roughly follow the format below.
 
 {
   "name":"Ahmed",
@@ -38,7 +38,7 @@
 
 
 ## Part 4: Calculation
-- [ ] Determine the user's most compatible friend by converting each user's results into a simple array of numbers (ex: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]).  With that done, compare the difference between current user's scores against those from other users, question by question. Add up the differences to calculate the totalDifference.
+- [X] Determine the user's most compatible friend by converting each user's results into a simple array of numbers (ex: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]).  With that done, compare the difference between current user's scores against those from other users, question by question. Add up the differences to calculate the totalDifference.
 
 Example:
 
