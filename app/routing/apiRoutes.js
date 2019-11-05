@@ -1,66 +1,53 @@
-/**
- * @param {object} tableData is the reservation information provided on input form
- * @param {object} waitData is the reservation information if length of tableData is greater than 5
- */
+var friendData = require("../data/friends.js");
 
-const tableData = require('../data/tableData.js');
-const waitData = require('../data/waitinglistData.js');
 
-/**
- * @module app
- */
-module.exports = function(app) {
+module.exports = function (app) {
 
-  /**
-   * Server end point for tables
-   * @param {object} tableData json formatted tableData
-   * @callback <response> get requests to api/tables, the app responds by delivering  json formatted data
-   */
-
-  app.get('/api/tables', function(req, res) {
-    res.json(tableData);
+  app.get("/api/friends", function (req, res) {
+    res.json(friendData);
   });
 
-
-  /**
-   * Server end point for waitlist
-   * @param {object} waitData json formatted waitListData
-   * @callback <response> get requests to api/waitList, the app responds by delivering json formatted data
-   *
-   */
-
-  app.get('/api/waitlist', function(req, res) {
-    res.json(waitData);
-  });
-
-  /**
-   * posts to api/tables
-   * @param {object} tableData data delivered from input form and tested
-   * @callback <request,response> posts push the requests to appropriate data array and responds with boolean value if threshold is or is not met
-   *
-   */
-
-  app.post('/api/tables', function(req, res) {
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    } else {
-      waitData.push(req.body);
-      res.json(false);
+  app.post("/api/friends", function (req, res) {
+    console.log(req.body);
+    //Calculate total points for user submission
+    var nFpoints = 0;
+    for (var i = 0; i < req.body.questionData.length; i++) {
+      nFpoints += parseInt(req.body.questionData[i]);
     }
-  });
 
-  /**
- * api/clear to eliminate existing data in arrays
- * @function
- *
- */
 
-  app.post('/api/clear', function() {
-    tableData = [];
-    waitData = [];
+    //Calculate points of matches
+    var matchScore = 0;
+    var comparisonArray = [];
+    for (var i = 0; i < friendData.length; i++) {
+      //Grab points array from each potential match
+      pointsArray = friendData[i].scores;
+      for (var j = 0; j < pointsArray.length; j++) {
+        //Calculate total points of each potential match
+        matchScore += parseInt(pointsArray[j]);
+      }
 
-    console.log(tableData);
-    console.log(waitData);
+      //Calculate absolute value of the diff between user and match points
+      var compare = Math.abs(nFpoints - matchScore);
+      console.log("Difference between " + req.body.name + " and potential match " + friendData[i].name + " is " + compare + " points");
+      //Push each difference value into an array
+      comparisonArray.push(compare);
+      //Reset match points to zero
+      matchPoints = 0;
+    }
+
+    //Return the minimum of the comparison array
+    Array.min = function (array) {
+      return Math.min.apply(Math, array);
+    };
+    var minimum = Array.min(comparisonArray);
+
+
+    //Find the index number of the minimum value in the comparison array
+    var indexNum = comparisonArray.indexOf(minimum);
+
+    //Use indexNum to grab the matching object from the JSON data and fill the response data that will be posted to the survey page
+    res.json(friendData[indexNum]);
+    friendData.push(req.body);
   });
 };

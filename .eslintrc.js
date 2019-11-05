@@ -4,9 +4,7 @@ module.exports = {
     'es6': true,
     'node': true,
   },
-  'extends': [
-    'google',
-  ],
+
   'globals': {
     'Atomics': 'readonly',
     'SharedArrayBuffer': 'readonly',
